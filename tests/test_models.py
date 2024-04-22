@@ -104,7 +104,7 @@ class TestProductModel(unittest.TestCase):
     #
     # ADD YOUR TEST CASES HERE
     #
-def test_read_a_product(self):
+    def test_read_a_product(self):
         """It should read a product from the database"""
         product = ProductFactory()
         product.id = None
