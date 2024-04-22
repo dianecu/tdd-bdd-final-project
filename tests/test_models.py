@@ -131,8 +131,18 @@ class TestProductModel(unittest.TestCase):
         found = Product.find(product.id)
         self.assertEqual(product.id,found.id)
         self.assertEqual(product.description,"Popocatepetl")
-
+        # Fetch it back and make sure the id hasn't changed
+        # but the data did change
         products = Product.all()
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].id, product.id)
         self.assertEqual(products[0].description, "Popocatepetl")
+
+    def test_delete_a_product(self):
+        """It should delete a product"""
+        product = ProductFactory()
+        product.create()
+        self.assertEqual(len(Product.all()), 1)
+        #delete the product
+        product.delete()
+        self.assertEqual(len(Product.all()), 0)
