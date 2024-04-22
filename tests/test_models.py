@@ -163,10 +163,10 @@ class TestProductModel(unittest.TestCase):
     def test_find_a_product_by_name(self):
         """It should Find a Product by Name"""
         product=[ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory()]
-        
+        #Create 5 products
         for i in range(5):
             product[i].create()
-        
+
         name=product[0].name
         contador=0
         for i in range(5):
@@ -178,3 +178,20 @@ class TestProductModel(unittest.TestCase):
         for product in same_name:
             self.assertEqual(product.name, name)
 
+    def test_find_a_product_by_availability(self):
+        """It should Find a Product by Availability"""
+        product=[ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory()]
+        #Create 10 products
+        for i in range(10):
+            product[i].create()
+
+        available=product[0].available
+        contador=0
+        for i in range(10):
+            if(available==product[i].available):
+                contador +=1
+
+        specified_availability = Product.find_by_availability(available)
+        self.assertEqual(specified_availability.count(),contador)
+        for product in specified_availability:
+            self.assertEqual(product.available, available)
