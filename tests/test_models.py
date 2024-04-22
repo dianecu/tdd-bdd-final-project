@@ -126,11 +126,11 @@ class TestProductModel(unittest.TestCase):
         product.create()
         self.assertIsNotNone(product.id)
 
-        product.description="Popocatepetl"
+        product.description = "Popocatepetl"
         product.update()
         found = Product.find(product.id)
-        self.assertEqual(product.id,found.id)
-        self.assertEqual(product.description,"Popocatepetl")
+        self.assertEqual(product.id, found.id)
+        self.assertEqual(product.description, "Popocatepetl")
         # Fetch it back and make sure the id hasn't changed
         # but the data did change
         products = Product.all()
@@ -143,7 +143,7 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.create()
         self.assertEqual(len(Product.all()), 1)
-        #delete the product
+        # delete the product
         product.delete()
         self.assertEqual(len(Product.all()), 0)
 
@@ -159,39 +159,59 @@ class TestProductModel(unittest.TestCase):
         # See if we get back 5 products
         products = Product.all()
         self.assertEqual(len(products), 5)
-        
+
     def test_find_a_product_by_name(self):
         """It should Find a Product by Name"""
-        product=[ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory()]
-        #Create 5 products
+        product = [ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory()]
+        # Create 5 products
         for i in range(5):
             product[i].create()
 
-        name=product[0].name
-        contador=0
+        name = product[0].name
+        contador = 0
         for i in range(5):
-            if(name==product[i].name):
-                contador +=1
+            if (name == product[i].name):
+                contador += 1
 
         same_name = Product.find_by_name(name)
-        self.assertEqual(same_name.count(),contador)
+        self.assertEqual(same_name.count(), contador)
         for product in same_name:
             self.assertEqual(product.name, name)
 
     def test_find_a_product_by_availability(self):
         """It should Find a Product by Availability"""
-        product=[ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory(),ProductFactory()]
-        #Create 10 products
+        product = [ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(),
+                   ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory()]
+        # Create 10 products
         for i in range(10):
             product[i].create()
 
-        available=product[0].available
-        contador=0
+        available = product[0].available
+        contador = 0
         for i in range(10):
-            if(available==product[i].available):
-                contador +=1
+            if (available == product[i].available):
+                contador += 1
 
         specified_availability = Product.find_by_availability(available)
-        self.assertEqual(specified_availability.count(),contador)
+        self.assertEqual(specified_availability.count(), contador)
         for product in specified_availability:
             self.assertEqual(product.available, available)
+
+    def test_find_a_product_by_category(self):
+        """It should Find a Product by Category"""
+        product = [ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(),
+                   ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory(), ProductFactory()]
+        # Create 10 products
+        for i in range(10):
+            product[i].create()
+
+        category = product[0].category
+        contador = 0
+        for i in range(10):
+            if (category == product[i].category):
+                contador += 1
+
+        result_category = Product.find_by_category(category)
+        self.assertEqual(result_category.count(), contador)
+        for product in result_category:
+            self.assertEqual(product.category, category)
