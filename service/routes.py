@@ -98,17 +98,11 @@ def create_products():
 # L I S T   A L L   P R O D U C T S
 ######################################################################
 
-#
-# PLACE YOUR CODE TO LIST ALL PRODUCTS HERE
-#
+
 
 ######################################################################
 # R E A D   A   P R O D U C T
 ######################################################################
-
-#
-# PLACE YOUR CODE HERE TO READ A PRODUCT
-#
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
     """Get a product"""
@@ -121,6 +115,11 @@ def get_products(product_id):
     app.logger.info("Returning product: %s", product.name)
     return product.serialize(), status.HTTP_200_OK
 
+
+
+######################################################################
+# U P D A T E   A   P R O D U C T
+######################################################################
 @app.route("/products/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
     """Update a product"""
@@ -137,18 +136,14 @@ def update_product(product_id):
     return product.serialize(), status.HTTP_200_OK
 
 ######################################################################
-# U P D A T E   A   P R O D U C T
-######################################################################
-
-#
-# PLACE YOUR CODE TO UPDATE A PRODUCT HERE
-#
-
-######################################################################
 # D E L E T E   A   P R O D U C T
 ######################################################################
-
-
-#
-# PLACE YOUR CODE TO DELETE A PRODUCT HERE
-#
+@app.route("/products/<int:product_id>", methods=["DELETE"]) 
+def delete_product(product_id): 
+    """Delete a producto""" 
+    app.logger.info(f"Request to delete counter: {product_id}")
+    result = Product.find(product_id)
+    if product:
+        result.delete()  
+        
+    return '', status.HTTP_204_NO_CONTENT
