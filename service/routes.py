@@ -24,6 +24,7 @@ from service.models import Product, Category
 from service.common import status  # HTTP Status Codes
 from . import app
 
+
 ######################################################################
 # H E A L T H   C H E C K
 ######################################################################
@@ -141,7 +142,6 @@ def get_products(product_id):
     return product.serialize(), status.HTTP_200_OK
 
 
-
 ######################################################################
 # U P D A T E   A   P R O D U C T
 ######################################################################
@@ -150,25 +150,25 @@ def update_product(product_id):
     """Update a product"""
     app.logger.info("Request to Update a product with id [%s]", product_id)
     check_content_type("application/json")
-    
+
     product = Product.find(product_id)
     if not product:
         abort(status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found.")
-        
+
     product.deserialize(request.get_json())
     product.id = product_id
     product.update()
     return product.serialize(), status.HTTP_200_OK
 
+
 ######################################################################
 # D E L E T E   A   P R O D U C T
 ######################################################################
-@app.route("/products/<int:product_id>", methods=["DELETE"]) 
-def delete_product(product_id): 
-    """Delete a producto""" 
+@app.route("/products/<int:product_id>", methods=["DELETE"])
+def delete_product(product_id):
+    """Delete a producto"""
     app.logger.info(f"Request to delete counter: {product_id}")
     result = Product.find(product_id)
     if result:
-        result.delete()  
-        
+        result.delete()
     return '', status.HTTP_204_NO_CONTENT

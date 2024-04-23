@@ -194,20 +194,20 @@ class TestProductRoutes(TestCase):
         new_product["description"] = "Popocatepetl"
 
         # Update the counter
-        result = self.client.put(f"{BASE_URL}/{new_product['id']}" , json=new_product)
+        result = self.client.put(f"{BASE_URL}/{new_product['id']}", json=new_product)
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         updated_product = result.get_json()
         self.assertEqual(updated_product["description"], "Popocatepetl")
 
-    def test_delete_a_product(self): 
-        """It should delete a product""" 
+    def test_delete_a_product(self):
+        """It should delete a product"""
         products = self._create_products(5)
         num_products = self.get_product_count()
         test_product = products[0]
 
-        # Delete the counter 
-        result = self.client.delete(f"{BASE_URL}/{test_product.id}") 
-        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT) 
+        # Delete the counter
+        result = self.client.delete(f"{BASE_URL}/{test_product.id}")
+        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(result.data), 0)
 
         result = self.client.get(f"{BASE_URL}/{test_product.id}")
@@ -258,7 +258,7 @@ class TestProductRoutes(TestCase):
         """It should list by availability"""
         products = self._create_products(10)
         available_products = [product for product in products if product.available is True]
-        available_count = len(available_products)        
+        available_count = len(available_products)
         # test for available
         response = self.client.get(
             BASE_URL, query_string="available=true"
@@ -270,11 +270,9 @@ class TestProductRoutes(TestCase):
         for product in data:
             self.assertEqual(product["available"], True)
 
-
-
 ######################################################################
-    # Utility functions
-    ######################################################################
+# Utility functions
+######################################################################
 
     def get_product_count(self):
         """save the current number of products"""
