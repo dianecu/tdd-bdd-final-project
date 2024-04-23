@@ -213,6 +213,13 @@ class TestProductRoutes(TestCase):
         new_num_products = self.get_product_count()
         self.assertEqual(new_num_products, num_products - 1)
 
+    def test_list_all_products(self):
+        """It should Get a list of Products"""
+        self._create_products(5)
+        response = self.client.get(BASE_URL)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.get_json()
+        self.assertEqual(len(data), 5)
 
 ######################################################################
     # Utility functions

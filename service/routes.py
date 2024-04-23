@@ -97,7 +97,14 @@ def create_products():
 ######################################################################
 # L I S T   A L L   P R O D U C T S
 ######################################################################
-
+@app.route("/products", methods=["GET"])
+def list_products():
+    """Returns a list of Products"""
+    app.logger.info("Request to list Products...")
+    products = Product.all()
+    results = [product.serialize() for product in products]
+    app.logger.info("[%s] Products returned", len(results))
+    return results, status.HTTP_200_OK
 
 
 ######################################################################
@@ -143,7 +150,7 @@ def delete_product(product_id):
     """Delete a producto""" 
     app.logger.info(f"Request to delete counter: {product_id}")
     result = Product.find(product_id)
-    if product:
+    if result:
         result.delete()  
         
     return '', status.HTTP_204_NO_CONTENT
