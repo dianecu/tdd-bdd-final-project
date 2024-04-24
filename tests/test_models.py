@@ -176,7 +176,7 @@ class TestProductModel(unittest.TestCase):
         name = product[0].name
         contador = 0
         for i in range(5):
-            if (name == product[i].name):
+            if name == product[i].name:
                 contador += 1
 
         same_name = Product.find_by_name(name)
@@ -195,7 +195,7 @@ class TestProductModel(unittest.TestCase):
         available = product[0].available
         contador = 0
         for i in range(10):
-            if (available == product[i].available):
+            if available == product[i].available:
                 contador += 1
 
         specified_availability = Product.find_by_availability(available)
@@ -214,7 +214,7 @@ class TestProductModel(unittest.TestCase):
         category = product[0].category
         contador = 0
         for i in range(10):
-            if (category == product[i].category):
+            if category == product[i].category:
                 contador += 1
 
         result_category = Product.find_by_category(category)
@@ -232,7 +232,7 @@ class TestProductModel(unittest.TestCase):
         price = product[0].price
         contador = 0
         for i in range(5):
-            if (price == product[i].price):
+            if price == product[i].price:
                 contador += 1
 
         same_price = Product.find_by_price(str(price))
