@@ -132,7 +132,7 @@ def list_products():
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
     """Get a product"""
-    app.logger.info(f"Request to retrieve a product: product_id")
+    app.logger.info(f"Request to retrieve a product: {product_id}")
 
     product = Product.find(product_id)
     if not product:
